@@ -4,61 +4,123 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Professional Portfolio</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#home">Neo Aliaga</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>    
 
-    <main>
-        <section id="home">
-            <div class="intro">
-                <h1>Hello, I'm Neo Aliaga</h1>
-                <p>A passionate Software Engineer specialized in several programming languages. Welcome to my portfolio!</p>
+    <!-- Wrap the main content for blurring -->
+    <div class="content-wrapper">
+        <!-- Home Section -->
+        <section id="home" class="bg-light text-dark text-center py-5">
+            <div class="container">
+                <h1 class="display-4">Hello, I'm Neo Aliaga</h1>
+                <p class="lead">A passionate software engineer specialized in everything software. Welcome to my portfolio!</p>
             </div>
         </section>
 
-        <section id="projects">
-            <h2>Featured Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <h3>Facturacion NEO</h3>
-                    <p>A system/software made for invoicing and registry of all purchases done in a store, or any similar establishment.</p>
-                    <a href="https://github.com/Neoar2000/SIS_Facturacion">View on GitHub</a>
-                </div>
-                <div class="project-card">
-                    <h3>Project 2</h3>
-                    <p>A brief description of your project.</p>
-                    <a href="#">View on GitHub</a>
+        <!-- Projects Section -->
+        <section id="projects" class="py-5">
+            <div class="container">
+                <h2 class="text-center mb-4">Featured Projects</h2>
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <div class="card h-100 shadow" onclick="openModal('modal1')">
+                            <div class="card-body">
+                                <h5 class="card-title">Facturacion NEO</h5>
+                                <p class="card-text">A system/software made in Java, for invoicing and registry of all purchases done in a store, or any similar establishment.</p>
+                                <a href="https://github.com/Neoar2000/SIS_Facturacion" class="btn btn-primary" target="_blank" onclick="event.stopPropagation()">View on GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card h-100 shadow" onclick="openModal('modal2')">
+                            <div class="card-body">
+                                <h5 class="card-title">Project 2</h5>
+                                <p class="card-text">A brief description of your project.</p>
+                                <a href="#" class="btn btn-primary" onclick="event.stopPropagation()">View on GitHub</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="about">
-            <h2>About Me</h2>
-            <p>I'm a [Your Role] with a passion for [field or skill]. I enjoy working on projects that [briefly describe what drives you]. Over the years, I've built [types of projects] that solve real-world problems.</p>
+        <!-- About Section -->
+        <section id="about" class="bg-light py-5 text-center">
+            <div class="container">
+                <h2>About Me</h2>
+                <p class="lead">I'm a software engineer with a passion for creating software solutions that simplify everyday processes. I enjoy working on projects that bring value and help automate tasks for businesses and individuals alike.</p>
+            </div>
         </section>
 
-        <section id="contact">
-            <h2>Get in Touch</h2>
-            <p>Email: <a href="mailto:josephneoar@gmail.com">josephneoar@gmail.com</a></p>
-            <p>LinkedIn: <a href="https://linkedin.com/in/NeoAliaga" target="_blank">My LinkedIn</a></p>
+        <!-- Contact Section -->
+        <section id="contact" class="py-5">
+            <div class="container text-center">
+                <h2>Get in Touch</h2>
+                <p>Email: <a href="mailto:josephneoar@gmail.com">josephneoar@gmail.com</a></p>
+                <p>LinkedIn: <a href="https://linkedin.com/in/NeoAliaga" target="_blank">My LinkedIn</a></p>
+            </div>
         </section>
-    </main>
+    </div>
 
-    <footer>
+    <!-- Footer -->
+    <footer class="text-light text-center py-3">
         <p>&copy; 2024 Neo Aliaga. All Rights Reserved.</p>
     </footer>
 
+    <!-- Modal 1 -->
+    <div id="modal1" class="modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Facturacion NEO Details</h5>
+                    <!-- Attach closeModal() to this button -->
+                    <button type="button" class="btn-close" onclick="closeModal('modal1')" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Facturacion NEO is a Java-based software designed for stores to handle invoicing, manage inventory, and track purchases. It streamlines the process of recording sales and automates the generation of invoices.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2 -->
+    <div id="modal2" class="modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Project 2 Details</h5>
+                    <!-- Attach closeModal() to this button -->
+                    <button type="button" class="btn-close" onclick="closeModal('modal2')" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>More detailed information about Project 2...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>
