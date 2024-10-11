@@ -1,3 +1,4 @@
+/* Body and layout styles */
 body {
     font-family: 'Roboto', sans-serif;
 }
@@ -20,6 +21,7 @@ section {
     font-weight: bold;
 }
 
+/* Card hover effect */
 .card {
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
@@ -34,20 +36,69 @@ section {
     transition: filter 0.3s ease;
 }
 
-/* Add this class when a modal is active to blur the background */
+/* Blur effect when modal is open */
 .modal-open .content-wrapper {
-    filter: blur(5px); /* Adjust the blur intensity as needed */
+    filter: blur(5px); /* Adjust the blur intensity */
 }
 
-/* Modal default styles */
+/* Modal is hidden by default */
 .modal {
-    display: none; /* Hidden by default */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0s 0.4s;
+}
+
+/* Modal becomes visible */
+.modal.modal-open {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.4s ease, visibility 0s 0s;
+}
+
+/* Modal opening animation (scale-up) */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Modal closing animation (scale-down) */
+@keyframes modalFadeOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+}
+
+/* Apply animation for opening */
+.modal-content {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: transform 0.4s, opacity 0.4s;
+}
+
+.modal.modal-open .modal-content {
+    animation: modalFadeIn 0.4s forwards;
+}
+
+/* Apply animation for closing */
+.modal.modal-close .modal-content {
+    animation: modalFadeOut 0.4s forwards;
 }
 
 /* Footer styles */
 footer {
-    background-color: #324875; /* Same dark blue as the navbar */
-    color: #ecf0f1; /* Light text for contrast */
+    background-color: #324875;
+    color: #ecf0f1;
     padding: 20px 0;
     margin-top: 40px;
 }
@@ -55,4 +106,3 @@ footer {
 footer p {
     margin: 0;
 }
-
