@@ -1,3 +1,31 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const spinner = document.getElementById('spinner');
+    const cardsContainer = document.getElementById('cardsContainer');
+    const images = document.querySelectorAll('#cardsContainer img');
+
+    let imagesLoaded = 0;
+
+    // Check if all images are loaded
+    images.forEach((img) => {
+        img.onload = function () {
+            imagesLoaded++;
+            if (imagesLoaded === images.length) {
+                // All images are loaded, hide spinner and show cards
+                spinner.style.display = 'none';
+                cardsContainer.classList.remove('d-none');
+            }
+        };
+    });
+
+    // Fallback in case there are no images
+    if (images.length === 0) {
+        window.onload = function () {
+            spinner.style.display = 'none';
+            cardsContainer.classList.remove('d-none');
+        };
+    }
+});
+
 window.onclick = function(event) {
     const modal1 = document.getElementById('modal1');
     const modal2 = document.getElementById('modal2');
@@ -83,30 +111,47 @@ let translateX = 0, translateY = 0; // Store the image's translation offset
 function openImageModal(src) {
     const imageModal = document.getElementById('imageModal');
     const expandedImg = document.getElementById('expandedImg');
-    const spinner = document.getElementById('spinner');
-    imageModal.classList.add('show'); // Add the show class to fade-in the image modal
-    spinner.style.display = 'block'; // Show spinner
-    // Start loading the image
+    const imageSpinner = document.getElementById('imageSpinner');
+
+    imageModal.classList.add('show'); // Show the modal
+    imageSpinner.style.display = 'block'; // Show spinner
+    expandedImg.style.display = 'none'; // Hide the image initially
+
+    // Load the image
     expandedImg.src = src;
-        
-    // Once the image is fully loaded, hide the spinner
+
+    // Once the image is loaded
     expandedImg.onload = function() {
-        spinner.style.display = 'none'; // Hide spinner
+        imageSpinner.style.display = 'none'; // Hide spinner
+        expandedImg.style.display = 'block'; // Show image
     };
 
-    // If there is an error loading the image, hide the spinner
+    // Handle image load error
     expandedImg.onerror = function() {
-        spinner.style.display = 'none'; // Hide spinner on error
+        imageSpinner.style.display = 'none'; // Hide spinner
+        alert('Failed to load image.');
     };
-    
-    resetImagePosition(); // Reset zoom and position on each modal open
+
+    resetImagePosition(); // Reset zoom and position
 }
 
 // Function to close the image modal
 function closeImageModal() {
     const imageModal = document.getElementById('imageModal');
-    imageModal.classList.remove('show'); // Remove the show class to fade-out the image modal
+    imageModal.classList.remove('show'); // Hide the modal
 }
+
+// Close the modal when clicking outside the image and spinner
+document.getElementById('imageModal').addEventListener('click', function(e) {
+    if (e.target === this) { // If the clicked target is the modal background, not the image or spinner
+        closeImageModal(); // Close the modal
+    }
+});
+
+// Prevent the image and spinner from closing the modal when clicked
+document.querySelector('.spinner-container').addEventListener('click', function(e) {
+    e.stopPropagation(); // Prevent the event from bubbling up to the modal
+});
 
 // Reset zoom and position when opening a new image
 function resetImagePosition() {

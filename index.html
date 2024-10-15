@@ -27,7 +27,7 @@
                 </ul>
             </div>
         </div>
-    </nav>    
+    </nav>
 
     <!-- All visible content wrapped in content-wrapper -->
     <div class="content-wrapper">
@@ -43,7 +43,14 @@
         <section id="projects" class="py-5">
             <div class="container">
                 <h2 class="text-center mb-4" data-aos="fade-up">Featured Projects</h2>
-                <div class="row g-4">
+                
+                <!-- Bootstrap Spinner while loading -->
+                <div id="spinner" class="spinner-border text-primary" role="status" style="width: 80px; height: 80px; display: flex; justify-content: center; margin: 50px auto;">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+
+                <!-- Cards container (hidden until content is loaded) -->
+                <div id="cardsContainer" class="row g-4 d-none">
                     <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
                         <div class="card h-100 shadow" onclick="openModal('modal1')">
                             <div class="card-body">
@@ -130,13 +137,19 @@
     </div>
 
     <!-- Fullscreen Image Modal -->
-    <div id="imageModal" class="image-modal" onclick="closeImageModal()">
+    <div id="imageModal" class="image-modal">
         <span class="close-image-modal" onclick="closeImageModal()">&times;</span>
-        <!-- Bootstrap Spinner -->
-        <div id="spinner" class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
+
+        <!-- Container for the spinner and image -->
+        <div class="spinner-container">
+            <!-- Spinner for the Image Modal -->
+            <div id="imageSpinner" class="spinner-border text-primary" role="status" style="width: 80px; height: 80px;">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+
+            <!-- Image -->
+            <img class="image-modal-content" id="expandedImg">
         </div>
-        <img class="image-modal-content" id="expandedImg">
     </div>
 
     <!-- Bootstrap JS -->
