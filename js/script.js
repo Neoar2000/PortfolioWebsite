@@ -83,8 +83,22 @@ let translateX = 0, translateY = 0; // Store the image's translation offset
 function openImageModal(src) {
     const imageModal = document.getElementById('imageModal');
     const expandedImg = document.getElementById('expandedImg');
-    expandedImg.src = src; // Set the image source to the clicked image
+    const spinner = document.getElementById('spinner');
     imageModal.classList.add('show'); // Add the show class to fade-in the image modal
+    spinner.style.display = 'block'; // Show spinner
+    // Start loading the image
+    expandedImg.src = src;
+        
+    // Once the image is fully loaded, hide the spinner
+    expandedImg.onload = function() {
+        spinner.style.display = 'none'; // Hide spinner
+    };
+
+    // If there is an error loading the image, hide the spinner
+    expandedImg.onerror = function() {
+        spinner.style.display = 'none'; // Hide spinner on error
+    };
+    
     resetImagePosition(); // Reset zoom and position on each modal open
 }
 
@@ -106,6 +120,9 @@ function resetImagePosition() {
 // Function to handle zoom with mouse wheel
 document.getElementById('expandedImg').addEventListener('wheel', function(e) {
     e.preventDefault();
+    const expandedImg = this;
+    
+    // Zoom in or out depending on the scroll direction
     if (e.deltaY < 0 && zoomLevel < maxZoom) {
         // Zoom in
         zoomLevel += zoomStep;
@@ -113,20 +130,29 @@ document.getElementById('expandedImg').addEventListener('wheel', function(e) {
         // Zoom out
         zoomLevel -= zoomStep;
     }
-    this.style.transform = `scale(${zoomLevel}) translate(${translateX}px, ${translateY}px)`; // Apply zoom and keep position
+
+    // If zoom level is reset to 1, reset the translation to center the image
+    if (zoomLevel === 1) {
+        translateX = 0;
+        translateY = 0;
+    }
+
+    // Apply the updated zoom and translation to the image
+    expandedImg.style.transform = `scale(${zoomLevel}) translate(${translateX}px, ${translateY}px)`;
 });
 
 // Function to handle panning when zoomed in (mouse drag)
 document.getElementById('expandedImg').addEventListener('mousedown', function(e) {
     if (zoomLevel > 1) { // Only allow panning if zoomed in
-        isDragging = true;
+        isDragging = true; // Enable dragging
         startX = e.clientX - translateX; // Record initial X position
         startY = e.clientY - translateY; // Record initial Y position
+        e.preventDefault(); // Prevent default behavior
     }
 });
 
 document.addEventListener('mousemove', function(e) {
-    if (isDragging) {
+    if (isDragging) { // Only allow panning while the mouse is held down
         translateX = e.clientX - startX; // Calculate new X position
         translateY = e.clientY - startY; // Calculate new Y position
         document.getElementById('expandedImg').style.transform = `scale(${zoomLevel}) translate(${translateX}px, ${translateY}px)`; // Move the image
@@ -134,7 +160,7 @@ document.addEventListener('mousemove', function(e) {
 });
 
 document.addEventListener('mouseup', function() {
-    isDragging = false; // Stop dragging when mouse is released
+    isDragging = false; // Stop panning when mouse is released
 });
 
 // Function to handle panning for touch devices (touch drag)
@@ -148,7 +174,7 @@ document.getElementById('expandedImg').addEventListener('touchstart', function(e
 });
 
 document.addEventListener('touchmove', function(e) {
-    if (isDragging && e.touches.length === 1) { // Only move if single touch
+    if (isDragging && e.touches.length === 1) { // Only move if single touch and dragging
         const touch = e.touches[0];
         translateX = touch.clientX - startX; // Calculate new X position
         translateY = touch.clientY - startY; // Calculate new Y position
@@ -158,6 +184,18 @@ document.addEventListener('touchmove', function(e) {
 
 document.addEventListener('touchend', function() {
     isDragging = false; // Stop dragging when touch ends
+});
+
+// Close the modal only when clicking outside the image
+document.getElementById('imageModal').addEventListener('click', function(e) {
+    if (e.target === this) { // If the clicked target is the modal background, not the image
+        closeImageModal(); // Close the modal
+    }
+});
+
+// Prevent the image from closing the modal when clicked
+document.getElementById('expandedImg').addEventListener('click', function(e) {
+    e.stopPropagation(); // Prevent the event from bubbling up to the modal
 });
 
 window.onclick = function(event) {
