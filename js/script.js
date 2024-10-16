@@ -37,7 +37,7 @@ window.onclick = function(event) {
     }
 };
 
-document.addEventListener('DOMContentLoaded', function () {
+/*document.addEventListener('DOMContentLoaded', function () {
     // Create a tooltip element
     const tooltip = document.createElement('div');
     tooltip.style.position = 'absolute';
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
             tooltip.style.opacity = '0'; // Hide the tooltip when leaving the card
         });
     });
-});
+});*/
 
 function openModal(modalId) {
     const modal = document.getElementById(modalId);
