@@ -21,6 +21,50 @@ section {
     font-weight: bold;
 }
 
+/* For screens smaller than 768px */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    .navbar {
+        padding: 10px 0;
+    }
+
+    .content-wrapper {
+        padding: 20px;
+    }
+
+    section {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+}
+
+/* For very small screens like mobile phones in portrait */
+@media (max-width: 576px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .content-wrapper {
+        padding: 15px;
+    }
+
+    .card-text {
+        font-size: 0.9rem;
+    }
+
+    .card {
+        margin-bottom: 20px;
+    }
+
+    footer p {
+        font-size: 0.8rem;
+    }
+}
+
+
 #spinner {
     display: flex;
     justify-content: center;
